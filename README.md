@@ -15,3 +15,4 @@ For CATS:
 - *d <integer>* -- limits the solving algorithm, so that it terminates before the HS-tree reaches the given level
 - *sR <true/false>* -- changes how relevance is treated with multiple axioms in the observation
 
+In an IDE, use the application by running the AppStarter class.
