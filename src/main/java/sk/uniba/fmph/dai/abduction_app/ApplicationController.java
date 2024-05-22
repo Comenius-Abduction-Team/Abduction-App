@@ -1,5 +1,7 @@
 package sk.uniba.fmph.dai.abduction_app;
 
+import io.github.palexdev.materialfx.controls.*;
+import io.github.palexdev.materialfx.controls.models.spinner.IntegerSpinnerModel;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -22,7 +24,6 @@ public class ApplicationController {
     private final Solver DEFAULT_SOLVER = Solver.CATS;
     Solver currentSolver = DEFAULT_SOLVER;
 
-
     @FXML
     private TabPane logPane;
 
@@ -32,57 +33,59 @@ public class ApplicationController {
     TextArea observationText;
 
     @FXML
-    Spinner<Integer> timeoutSetter;
+    MFXSpinner<Integer> timeoutSetter;
+    IntegerSpinnerModel timeoutModel;
+
     @FXML
     Label timeoutLabel;
     @FXML
     Label timeoutSecondsLabel;
 
     @FXML
-    private ChoiceBox<String> solverChoice;
+    private MFXComboBox<String> solverChoice;
 
     @FXML
-    TextField parameterSetter;
+    MFXTextField parameterSetter;
 
     @FXML
     ToggleGroup abduciblesRadioGroup;
     @FXML
-    RadioButton noAbduciblesRadio;
+    MFXRadioButton noAbduciblesRadio;
     @FXML
-    RadioButton symbolRadio;
+    MFXRadioButton symbolRadio;
     @FXML
-    RadioButton axiomRadio;
+    MFXRadioButton axiomRadio;
     @FXML
     TextArea abduciblesText;
 
     public Stage stage;
 
     @FXML
-    private Button startSolvingButton;
+    private MFXButton startSolvingButton;
     @FXML
-    private Button stopSolvingButton;
+    private MFXButton stopSolvingButton;
 
     @FXML
     TextArea explanationsConsole;
     @FXML
     private TextArea logConsole;
     @FXML
-    public TextField progressMessage;
+    public MFXTextField progressMessage;
     @FXML
-    public ProgressBar progressBar;
+    public MFXProgressBar progressBar;
     @FXML
-    private ProgressIndicator progressIndicator;
+    private MFXProgressSpinner progressIndicator;
 
     @FXML
-    CheckBox conceptCheckbox;
+    MFXCheckbox conceptCheckbox;
     @FXML
-    CheckBox complexCheckbox;
+    MFXCheckbox complexCheckbox;
     @FXML
-    CheckBox complementCheckbox;
+    MFXCheckbox complementCheckbox;
     @FXML
-    CheckBox roleCheckbox;
+    MFXCheckbox roleCheckbox;
     @FXML
-    CheckBox loopCheckbox;
+    MFXCheckbox loopCheckbox;
 
     @FXML
     Pane abduciblePane;
@@ -92,7 +95,7 @@ public class ApplicationController {
     @FXML
     private TitledPane settingsPane;
     @FXML
-    private ScrollPane scrollPane;
+    private MFXScrollPane scrollPane;
 
 
 // ------------------------------ HIGH-LEVEL METHODS RELATED TO RUNNING THE ABDUCTION ------------------------------
@@ -105,9 +108,12 @@ public class ApplicationController {
 
         solverChoice.setValue(DEFAULT_SOLVER.toString());
 
-        timeoutSetter.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0)
-        );
+        timeoutModel = new IntegerSpinnerModel();
+        timeoutModel.setDefaultValue(0);
+        timeoutModel.setMin(0);
+        timeoutModel.setMax(Integer.MAX_VALUE);
+
+        timeoutSetter.setSpinnerModel(timeoutModel);
 
         modifyInterfaceAccordingToCurrentSolver();
         setDefaultConfiguration();
@@ -227,8 +233,8 @@ public class ApplicationController {
         ExtendedSolverDescriptor descriptor = SolverDescriptorMap.getDescriptor(currentSolver);
 
         makeElementVisible(timeoutSetter, descriptor.hasTimeLimit());
-        makeElementVisible(timeoutLabel, descriptor.hasTimeLimit());
-        makeElementVisible(timeoutSecondsLabel, descriptor.hasTimeLimit());
+        //makeElementVisible(timeoutLabel, descriptor.hasTimeLimit());
+        //makeElementVisible(timeoutSecondsLabel, descriptor.hasTimeLimit());
 
         makeElementVisible(parameterSetter, descriptor.hasSpecificParameters());
 

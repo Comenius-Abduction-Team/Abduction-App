@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXProgressBar?>
+<?import io.github.palexdev.materialfx.controls.MFXProgressSpinner?>
+<?import io.github.palexdev.materialfx.controls.MFXRadioButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import io.github.palexdev.materialfx.controls.MFXSpinner?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.ProgressIndicator?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,7 +26,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0">
+      <MFXScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0">
          <content>
             <VBox minHeight="0.0" prefWidth="1009.0">
                <children>
@@ -34,7 +34,7 @@
                      <children>
                         <Pane fx:id="kbPane" minWidth="-Infinity" prefHeight="306.0" prefWidth="426.0">
                            <children>
-                              <TextArea fx:id="bkText" layoutX="13.0" layoutY="52.0" prefHeight="212.0" prefWidth="400.0" wrapText="true">
+                              <TextArea fx:id="bkText" layoutX="13.0" layoutY="52.0" prefHeight="212.0" prefWidth="400.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -48,7 +48,7 @@
                         </Pane>
                         <Pane minWidth="-Infinity" prefHeight="306.0" prefWidth="426.0">
                            <children>
-                              <TextArea fx:id="observationText" focusTraversable="true" layoutX="13.0" layoutY="54.0" prefHeight="209.0" prefWidth="400.0" wrapText="true">
+                              <TextArea fx:id="observationText" layoutX="13.0" layoutY="54.0" prefHeight="209.0" prefWidth="400.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -62,7 +62,7 @@
                         </Pane>
                         <Pane fx:id="abduciblePane" minWidth="-Infinity" prefHeight="306.0" prefWidth="426.0">
                            <children>
-                              <TextArea fx:id="abduciblesText" disable="true" focusTraversable="true" layoutX="13.0" layoutY="84.0" prefHeight="176.0" prefWidth="400.0" visible="false" wrapText="true">
+                              <TextArea fx:id="abduciblesText" disable="true" layoutX="13.0" layoutY="84.0" prefHeight="176.0" prefWidth="400.0" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -74,13 +74,13 @@
                               </Label>
                               <HBox layoutX="13.0" layoutY="54.0" prefHeight="18.0" prefWidth="291.0">
                                  <children>
-                                    <RadioButton fx:id="noAbduciblesRadio" mnemonicParsing="false" onAction="#hideAbduciblesText" prefHeight="18.0" prefWidth="75.0" selected="true" text="None">
+                                    <MFXRadioButton fx:id="noAbduciblesRadio" mnemonicParsing="false" onAction="#hideAbduciblesText" prefHeight="18.0" prefWidth="75.0" selected="true" text="None">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="abduciblesRadioGroup" />
                                        </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton fx:id="symbolRadio" mnemonicParsing="false" onAction="#showAbduciblesText" prefHeight="18.0" prefWidth="86.0" text="Symbols" toggleGroup="$abduciblesRadioGroup" />
-                                    <RadioButton fx:id="axiomRadio" mnemonicParsing="false" onAction="#showAbduciblesText" prefHeight="18.0" prefWidth="75.0" text="Axioms" toggleGroup="$abduciblesRadioGroup" />
+                                    </MFXRadioButton>
+                                    <MFXRadioButton fx:id="symbolRadio" mnemonicParsing="false" onAction="#showAbduciblesText" prefHeight="18.0" prefWidth="86.0" text="Symbols" toggleGroup="$abduciblesRadioGroup" />
+                                    <MFXRadioButton fx:id="axiomRadio" mnemonicParsing="false" onAction="#showAbduciblesText" prefHeight="18.0" prefWidth="75.0" text="Axioms" toggleGroup="$abduciblesRadioGroup" />
                                  </children>
                               </HBox>
                            </children>
@@ -95,52 +95,50 @@
                               <Pane prefHeight="355.0" prefWidth="1009.0">
                                  <children>
                                     <Label layoutX="30.0" layoutY="47.0" text="Solver:" />
-                                    <Label fx:id="timeoutLabel" layoutX="257.0" layoutY="47.0" text="Time limit:" />
-                                    <Spinner fx:id="timeoutSetter" editable="true" layoutX="318.0" layoutY="43.0" prefHeight="25.0" prefWidth="73.0" />
-                                    <Label fx:id="timeoutSecondsLabel" layoutX="403.0" layoutY="47.0" text="(seconds)" />
-                                    <Label layoutX="477.0" layoutY="47.0" text="Additional parameters:" />
-                                    <TextField fx:id="parameterSetter" layoutX="618.0" layoutY="43.0" prefHeight="25.0" prefWidth="469.0" />
+                                    <Label fx:id="timeoutLabel" layoutX="344.0" layoutY="15.0" text="Time limit:" />
+                                    <MFXSpinner fx:id="timeoutSetter" editable="true" layoutX="371.0" layoutY="44.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="80.0" />
+                                    <MFXTextField fx:id="parameterSetter" borderGap="0.0" floatMode="ABOVE" floatingText="Addditional parameters" layoutX="506.0" layoutY="39.0" minHeight="-Infinity" prefHeight="35.0" prefWidth="403.0" />
                                     <Pane fx:id="configuratorPane" layoutX="30.0" layoutY="90.0">
                                        <children>
                                           <HBox layoutX="91.0" layoutY="25.0" prefHeight="35.0" prefWidth="670.0">
                                              <children>
-                                                <CheckBox fx:id="conceptCheckbox" mnemonicParsing="false" onAction="#disableImpossibleConceptConfiguration" prefHeight="22.0" text="Concept assertions">
+                                                <MFXCheckbox fx:id="conceptCheckbox" mnemonicParsing="false" onAction="#disableImpossibleConceptConfiguration" prefHeight="22.0" text="Concept assertions">
                                                    <padding>
                                                       <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                    </padding>
-                                                </CheckBox>
-                                                <CheckBox fx:id="complexCheckbox" mnemonicParsing="false" text="Complex concepts">
-                                                   <padding>
-                                                      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                                   </padding>
-                                                   <HBox.margin>
-                                                      <Insets left="15.0" />
-                                                   </HBox.margin>
-                                                </CheckBox>
-                                                <CheckBox fx:id="complementCheckbox" mnemonicParsing="false" text="Concept complements">
+                                                </MFXCheckbox>
+                                                <MFXCheckbox fx:id="complexCheckbox" mnemonicParsing="false" text="Complex concepts">
                                                    <padding>
                                                       <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                    </padding>
                                                    <HBox.margin>
                                                       <Insets left="15.0" />
                                                    </HBox.margin>
-                                                </CheckBox>
-                                                <CheckBox fx:id="roleCheckbox" mnemonicParsing="false" onAction="#disableImpossibleRoleConfiguration" text="Role assertions">
+                                                </MFXCheckbox>
+                                                <MFXCheckbox fx:id="complementCheckbox" mnemonicParsing="false" text="Concept complements">
+                                                   <padding>
+                                                      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                                   </padding>
+                                                   <HBox.margin>
+                                                      <Insets left="15.0" />
+                                                   </HBox.margin>
+                                                </MFXCheckbox>
+                                                <MFXCheckbox fx:id="roleCheckbox" mnemonicParsing="false" onAction="#disableImpossibleRoleConfiguration" text="Role assertions">
                                                    <padding>
                                                       <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                    </padding>
                                                    <HBox.margin>
                                                       <Insets left="30.0" />
                                                    </HBox.margin>
-                                                </CheckBox>
-                                                <CheckBox fx:id="loopCheckbox" mnemonicParsing="false" text="Loops">
+                                                </MFXCheckbox>
+                                                <MFXCheckbox fx:id="loopCheckbox" mnemonicParsing="false" text="Loops">
                                                    <padding>
                                                       <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                    </padding>
                                                    <HBox.margin>
                                                       <Insets left="15.0" />
                                                    </HBox.margin>
-                                                </CheckBox>
+                                                </MFXCheckbox>
                                              </children>
                                           </HBox>
                                           <Label text="ALLOWED ASSERTIONS">
@@ -148,7 +146,7 @@
                                                 <Font size="13.0" />
                                              </font>
                                           </Label>
-                                          <Button layoutX="5.0" layoutY="25.0" mnemonicParsing="false" onAction="#setDefaultConfiguration" prefHeight="25.0" prefWidth="67.0" text="Default" />
+                                          <MFXButton layoutX="5.0" layoutY="25.0" mnemonicParsing="false" onAction="#setDefaultConfiguration" prefHeight="25.0" prefWidth="67.0" text="Default" />
                                        </children>
                                     </Pane>
                                     <Separator layoutX="-7.0" layoutY="78.0" prefHeight="11.0" prefWidth="1280.0" />
@@ -157,7 +155,7 @@
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <ChoiceBox fx:id="solverChoice" layoutX="82.0" layoutY="43.0" prefWidth="150.0" />
+                                    <MFXComboBox fx:id="solverChoice" borderGap="5.0" floatMode="BORDER" floatingText="Solver" floatingTextGap="20.0" layoutX="176.0" layoutY="28.0" minHeight="-Infinity" prefHeight="45.0" prefWidth="118.0" />
                                  </children>
                               </Pane>
                            </content>
@@ -167,24 +165,24 @@
                </children>
             </VBox>
          </content>
-      </ScrollPane>
+      </MFXScrollPane>
       <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="257.0" prefWidth="1280.0" style="-fx-background-color: #f3f6f4;">
          <children>
-            <Button fx:id="startSolvingButton" graphicTextGap="0.0" layoutX="20.0" layoutY="31.0" mnemonicParsing="false" onAction="#startSolving" text="Start" />
-            <Button fx:id="stopSolvingButton" disable="true" layoutX="74.0" layoutY="31.0" mnemonicParsing="false" onAction="#stopSolving" text="Stop" />
-            <ProgressBar fx:id="progressBar" layoutX="183.0" layoutY="31.0" prefHeight="25.0" prefWidth="762.0" progress="0.0" />
+            <MFXButton fx:id="startSolvingButton" graphicTextGap="0.0" layoutX="20.0" layoutY="31.0" mnemonicParsing="false" onAction="#startSolving" text="Start" />
+            <MFXButton fx:id="stopSolvingButton" disable="true" layoutX="74.0" layoutY="31.0" mnemonicParsing="false" onAction="#stopSolving" text="Stop" />
+            <MFXProgressBar fx:id="progressBar" layoutX="183.0" layoutY="31.0" prefHeight="25.0" prefWidth="762.0" progress="0.0" />
             <TabPane fx:id="logPane" layoutX="14.0" layoutY="67.0" prefHeight="256.0" prefWidth="1261.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Explanations">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="544.0">
                            <children>
-                              <TextArea fx:id="explanationsConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1170.0" wrapText="true">
+                              <TextArea fx:id="explanationsConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1170.0">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </TextArea>
-                              <Button fx:id="clearConsoleButton1" layoutX="1190.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
+                              <MFXButton fx:id="clearConsoleButton1" layoutX="1190.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -193,12 +191,12 @@
                   <content>
                     <AnchorPane minWidth="0.0" prefHeight="178.0" prefWidth="1264.0">
                            <children>
-                              <TextArea fx:id="logConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1170.0" wrapText="true">
+                              <TextArea fx:id="logConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1170.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </TextArea>
-                              <Button fx:id="clearConsoleButton" layoutX="1190.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
+                              <MFXButton fx:id="clearConsoleButton" layoutX="1190.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" style=".mfx-button" text="Clear" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -206,9 +204,9 @@
               </tabs>
             </TabPane>
             <Label fx:id="statusLabel" layoutX="963.0" layoutY="14.0" prefHeight="17.0" prefWidth="180.0" text="Status:" />
-            <TextField fx:id="progressMessage" editable="false" focusTraversable="false" layoutX="963.0" layoutY="31.0" prefHeight="25.0" prefWidth="291.0" />
+            <MFXTextField fx:id="progressMessage" editable="false" focusTraversable="false" layoutX="963.0" layoutY="31.0" minHeight="-Infinity" prefHeight="25.0" prefWidth="300.0" />
             <Separator layoutX="-8.0" layoutY="-3.0" prefHeight="17.0" prefWidth="1290.0" />
-            <ProgressIndicator fx:id="progressIndicator" disable="true" focusTraversable="false" layoutX="138.0" layoutY="24.0" prefHeight="35.0" prefWidth="29.0" visible="false" />
+            <MFXProgressSpinner fx:id="progressIndicator" disable="true" layoutX="138.0" layoutY="24.0" prefHeight="35.0" prefWidth="29.0" visible="false" />
          </children>
       </Pane>
    </children>
