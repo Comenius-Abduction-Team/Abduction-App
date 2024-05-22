@@ -57,17 +57,23 @@
         <version>11</version>
     </dependency>
 
-    <dependency>
-        <groupId>com.github.Comenius-Abduction-Team</groupId>
-        <artifactId>DL-Abduction-API</artifactId>
-        <version>ca887a837c</version>
-    </dependency>
+        <dependency>
+            <groupId>io.github.palexdev</groupId>
+            <artifactId>materialfx</artifactId>
+            <version>11.17.0</version>
+        </dependency>
 
-    <dependency>
-        <groupId>com.github.Comenius-Abduction-Team</groupId>
-        <artifactId>CATS-Abduction-Solver</artifactId>
-        <version>129eec94a5</version>
-    </dependency>
+<!--    <dependency>-->
+<!--        <groupId>com.github.Comenius-Abduction-Team</groupId>-->
+<!--        <artifactId>DL-Abduction-API</artifactId>-->
+<!--        <version>ca887a837c</version>-->
+<!--    </dependency>-->
+
+        <dependency>
+            <groupId>com.github.Comenius-Abduction-Team</groupId>
+            <artifactId>CATS-Abduction-Solver</artifactId>
+            <version>40eebf133b</version>
+        </dependency>
 
     </dependencies>
 
