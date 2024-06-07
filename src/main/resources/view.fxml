@@ -24,6 +24,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.skin.TabPaneSkin.TabControlButtons?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0">
@@ -85,11 +86,16 @@
                               </HBox>
                            </children>
                         </Pane>
+
                      </children>
+                  </HBox>
+                  <HBox style="-fx-padding: 10">
+                     <Button fx:id="uploadButton"  graphicTextGap="0.0" layoutX="100.0" layoutY="31.0" mnemonicParsing="false" onAction="#uploadFile" text="Upload Background Knowledge" />
                   </HBox>
                   <Separator prefWidth="200.0" />
                   <Accordion maxHeight="180.0" minHeight="0.0" prefHeight="180.0" prefWidth="1266.0">
                      <panes>
+
                         <TitledPane fx:id="settingsPane" animated="false" expanded="false" maxHeight="180.0" prefWidth="1266.0" text="Additional Settings">
                            <content>
                               <Pane prefHeight="355.0" prefWidth="1009.0">
@@ -179,12 +185,13 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="544.0">
                            <children>
-                              <TextArea fx:id="explanationsConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1170.0" wrapText="true">
+                              <TextArea fx:id="explanationsConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1090.0" wrapText="true">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </TextArea>
-                              <Button fx:id="clearConsoleButton1" layoutX="1190.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
+                              <Button fx:id="clearConsoleButton1" layoutX="1150.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
+                              <Button fx:id="explanations" layoutX="1113.5" layoutY="50.0" mnemonicParsing="false" onAction="#saveExpln" prefHeight="26.0" prefWidth="120.0" text="Save explanations" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -193,12 +200,13 @@
                   <content>
                     <AnchorPane minWidth="0.0" prefHeight="178.0" prefWidth="1264.0">
                            <children>
-                              <TextArea fx:id="logConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1170.0" wrapText="true">
+                              <TextArea fx:id="logConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1090.0" wrapText="true">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </TextArea>
-                              <Button fx:id="clearConsoleButton" layoutX="1190.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
+                              <Button fx:id="clearConsoleButton" layoutX="1150.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
+                              <Button fx:id="savelogs" layoutX="1133.5" layoutY="50.0" mnemonicParsing="false" onAction="#saveLogs" prefHeight="26.0" prefWidth="80.0" text="Save logs" />
                            </children>
                         </AnchorPane>
                   </content>

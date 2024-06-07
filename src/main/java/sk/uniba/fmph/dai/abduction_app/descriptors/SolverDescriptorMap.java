@@ -17,6 +17,7 @@ public class SolverDescriptorMap {
     }
 
     public static ExtendedSolverDescriptor getDescriptor(Solver solver){
+        var el = descriptors.get(solver);
         return descriptors.get(solver);
     }
 

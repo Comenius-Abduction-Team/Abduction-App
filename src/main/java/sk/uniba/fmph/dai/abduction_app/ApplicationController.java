@@ -2,9 +2,11 @@ package sk.uniba.fmph.dai.abduction_app;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.SubScene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sk.uniba.fmph.dai.abduction_api.abducer.IAbducer;
 import sk.uniba.fmph.dai.abduction_api.abducer.IExplanation;
@@ -13,6 +15,12 @@ import sk.uniba.fmph.dai.abduction_app.descriptors.Solver;
 import sk.uniba.fmph.dai.abduction_app.descriptors.SolverDescriptorMap;
 import sk.uniba.fmph.dai.abduction_app.threading.ThreadManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 /** manages the application, both GUI and solving functionality**/
@@ -22,6 +30,15 @@ public class ApplicationController {
     private final Solver DEFAULT_SOLVER = Solver.CATS;
     Solver currentSolver = DEFAULT_SOLVER;
 
+
+    @FXML
+    Button uploadButton;
+
+    @FXML
+    Button savelogs;
+
+    @FXML
+    Button explanations;
 
     @FXML
     private TabPane logPane;
@@ -117,6 +134,10 @@ public class ApplicationController {
         explanationsConsole.setText("");
         logConsole.setText("");
 
+
+        uploadButton = new Button("Upload text File");
+
+
     }
 
     void changeSolver(){
@@ -126,6 +147,63 @@ public class ApplicationController {
                 modifyInterfaceAccordingToCurrentSolver();
                 return;
             }
+        }
+    }
+
+    @FXML
+    protected void uploadFile(){
+        System.out.println("Upload");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if(selectedFile != null){
+            try{
+                String context = Files.readString(Path.of(selectedFile.getAbsolutePath()));
+                bkText.setText(context);
+            }
+            catch (Exception e){
+                bkText.setText("Error reading file: "+ e.getMessage());
+            }
+        }
+
+    }
+
+    @FXML
+    protected void saveLogs(){
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Log files (*.log)", "*.log");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            saveTextToFile(logConsole.getText(), file);
+        }
+    }
+
+    @FXML
+    protected void saveExpln(){
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            saveTextToFile(explanationsConsole.getText(), file);
+        }
+    }
+
+    private void saveTextToFile(String content, File file) {
+        try {
+            PrintWriter writer;
+            writer = new PrintWriter(file);
+            writer.println(content);
+            writer.close();
+        } catch (IOException e) {
+            logConsole.setText(e.getMessage());
         }
     }
 
