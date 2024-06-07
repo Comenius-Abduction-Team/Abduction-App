@@ -66,7 +66,7 @@
     <dependency>
         <groupId>com.github.Comenius-Abduction-Team</groupId>
         <artifactId>CATS-Abduction-Solver</artifactId>
-        <version>129eec94a5</version>
+        <version>40eebf133b</version>
     </dependency>
 
     </dependencies>
