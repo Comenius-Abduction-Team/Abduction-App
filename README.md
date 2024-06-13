@@ -10,9 +10,11 @@ In Additional settings, the solver to use can be chosen (there is only one funct
 
 For each solver, specific parameters can be set as strings, analogously to UNIX command line parameters. These parameters are strongly related to the algorithm that is used in the given solver. They are listed here:
 
-For CATS:
+For CATS (check [repository](https://github.com/Comenius-Abduction-Team/CATS-Abduction-Solver) for more detailed info):
 
-- *d <integer>* -- limits the solving algorithm, so that it terminates before the HS-tree reaches the given level
+- *alg [ mhs | hst | mxp | mhs-mxp | hst-mxp ] -- chooses which abduction algorithm should be used
+- *d \<integer\>* -- limits the solving algorithm, so that it terminates before the HS-tree reaches the given level
 - *sR <true/false>* -- changes how relevance is treated with multiple axioms in the observation
+- *log <true/false>* -- if set to *true*, log files with extra information will be created
 
 In an IDE, use the application by running the AppStarter class.
