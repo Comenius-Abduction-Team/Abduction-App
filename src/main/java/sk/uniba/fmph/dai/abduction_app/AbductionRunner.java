@@ -131,6 +131,18 @@ public class AbductionRunner {
         if (descriptor.hasSpecificParameters()) {
             abducer.resetSolverSpecificParameters();
             String parameters = controller.parameterSetter.getText();
+            if(controller.strictRelevant.isSelected()){
+                parameters += "-sR false";
+                parameters += " ";
+            }
+            if(controller.depthSetter.getValue() != 0){
+                parameters += "-d " + controller.depthSetter.getValue();
+                parameters +=" ";
+            }
+//            System.out.println(controller.algoChoise.getValue());
+            parameters += "-alg " + controller.algoChoise.getValue();
+//            parameters += "-alg mhs-mxp";
+
             if (!parameters.isEmpty()) abducer.setSolverSpecificParameters(parameters);
         }
     }

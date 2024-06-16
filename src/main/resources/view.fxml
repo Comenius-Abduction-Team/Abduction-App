@@ -23,8 +23,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.skin.TabPaneSkin.TabControlButtons?>
+<?import javafx.scene.layout.Region?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0">
          <content>
@@ -85,11 +87,20 @@
                               </HBox>
                            </children>
                         </Pane>
+
                      </children>
+                  </HBox>
+                  <HBox style="-fx-padding: 10">
+                     <Button fx:id="uploadBkN"  graphicTextGap="0.0" layoutX="100.0" layoutY="31.0" mnemonicParsing="false" onAction="#uploadFile" text="Upload Background Knowledge" />
+                     <Region minWidth="250"/>
+                     <Button fx:id="uploadObservation" style="fx-padding: 0 0 0 100;" graphicTextGap="0.0" layoutX="100.0" layoutY="31.0" mnemonicParsing="false" onAction="#uploadObservation" text="Upload Observation" />
+                     <Region minWidth="300"/>
+                     <Button fx:id="abduciblesButton" disable="true" visible="false" graphicTextGap="0.0" layoutX="100.0" layoutY="31.0" mnemonicParsing="false" onAction="#uploadAbducibles" text="Upload Abducible" />
                   </HBox>
                   <Separator prefWidth="200.0" />
                   <Accordion maxHeight="180.0" minHeight="0.0" prefHeight="180.0" prefWidth="1266.0">
                      <panes>
+
                         <TitledPane fx:id="settingsPane" animated="false" expanded="false" maxHeight="180.0" prefWidth="1266.0" text="Additional Settings">
                            <content>
                               <Pane prefHeight="355.0" prefWidth="1009.0">
@@ -99,7 +110,7 @@
                                     <Spinner fx:id="timeoutSetter" editable="true" layoutX="318.0" layoutY="43.0" prefHeight="25.0" prefWidth="73.0" />
                                     <Label fx:id="timeoutSecondsLabel" layoutX="403.0" layoutY="47.0" text="(seconds)" />
                                     <Label layoutX="477.0" layoutY="47.0" text="Solver specific parameters:" />
-                                    <TextField fx:id="parameterSetter" layoutX="632.0" layoutY="43.0" prefHeight="25.0" prefWidth="291.0" />
+                                    <TextField fx:id="parameterSetter" layoutX="618.0" layoutY="43.0" prefHeight="25.0" prefWidth="300.0" />
                                     <Pane fx:id="configuratorPane" layoutX="30.0" layoutY="90.0">
                                        <children>
                                           <HBox layoutX="91.0" layoutY="25.0" prefHeight="35.0" prefWidth="800.0">
@@ -157,7 +168,23 @@
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
+
+                                    <Label layoutX="950.0" layoutY="47.0" text="Alg:" />
+                                    <ChoiceBox fx:id="algoChoise" layoutX="1000.0" layoutY="43.0" prefWidth="80.0" />
+
                                     <ChoiceBox fx:id="solverChoice" layoutX="82.0" layoutY="43.0" prefWidth="150.0" />
+                                    <Label fx:id="depthLabel" layoutX="1100.0" layoutY="47.0" text="Depth:" />
+                                    <Spinner fx:id="depthSetter" editable="true" layoutX="1150.0" layoutY="43.0" prefHeight="25.0" prefWidth="73.0" />
+                                    <HBox layoutX="1082.0" layoutY="15.0">
+                                       <CheckBox fx:id="strictRelevant" mnemonicParsing="false" text="Strict relevance">
+                                          <padding>
+                                             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                          </padding>
+                                          <HBox.margin>
+                                             <Insets left="15.0" />
+                                          </HBox.margin>
+                                       </CheckBox>
+                                    </HBox>
                                  </children>
                               </Pane>
                            </content>
@@ -179,12 +206,13 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="544.0">
                            <children>
-                              <TextArea fx:id="explanationsConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1170.0" wrapText="true">
+                              <TextArea fx:id="explanationsConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1090.0" wrapText="true">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </TextArea>
-                              <Button fx:id="clearConsoleButton1" layoutX="1190.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
+                              <Button fx:id="clearConsoleButton1" layoutX="1150.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
+                              <Button fx:id="explanations" layoutX="1113.5" layoutY="50.0" mnemonicParsing="false" onAction="#saveExpln" prefHeight="26.0" prefWidth="120.0" text="Save explanations" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -193,12 +221,13 @@
                   <content>
                     <AnchorPane minWidth="0.0" prefHeight="178.0" prefWidth="1264.0">
                            <children>
-                              <TextArea fx:id="logConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1170.0" wrapText="true">
+                              <TextArea fx:id="logConsole" editable="false" layoutX="9.0" layoutY="6.0" prefHeight="144.0" prefWidth="1090.0" wrapText="true">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </TextArea>
-                              <Button fx:id="clearConsoleButton" layoutX="1190.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
+                              <Button fx:id="clearConsoleButton" layoutX="1150.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
+                              <Button fx:id="savelogs" layoutX="1133.5" layoutY="50.0" mnemonicParsing="false" onAction="#saveLogs" prefHeight="26.0" prefWidth="80.0" text="Save logs" />
                            </children>
                         </AnchorPane>
                   </content>

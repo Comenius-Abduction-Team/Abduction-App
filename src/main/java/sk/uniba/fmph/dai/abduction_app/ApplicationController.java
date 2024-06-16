@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sk.uniba.fmph.dai.abduction_api.abducer.IAbducer;
 import sk.uniba.fmph.dai.abduction_api.abducer.IExplanation;
@@ -13,6 +14,11 @@ import sk.uniba.fmph.dai.abduction_app.descriptors.Solver;
 import sk.uniba.fmph.dai.abduction_app.descriptors.SolverDescriptorMap;
 import sk.uniba.fmph.dai.abduction_app.threading.ThreadManager;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 /** manages the application, both GUI and solving functionality**/
@@ -21,6 +27,31 @@ public class ApplicationController {
     ThreadManager threader;
     private final Solver DEFAULT_SOLVER = Solver.CATS;
     Solver currentSolver = DEFAULT_SOLVER;
+
+    @FXML
+    ChoiceBox<String> algoChoise;
+
+
+    @FXML
+    Button uploadBkN;
+
+    @FXML
+    Button uploadObservation;
+
+    @FXML
+    Button abduciblesButton;
+
+    @FXML
+    Button savelogs;
+
+    @FXML
+    Button explanations;
+
+    @FXML
+    Spinner<Integer> depthSetter;
+
+    @FXML
+    CheckBox strictRelevant;
 
 
     @FXML
@@ -105,7 +136,21 @@ public class ApplicationController {
 
         solverChoice.setValue(DEFAULT_SOLVER.toString());
 
+//        List<String> algorithms = new ArrayList<>();
+//        algorithms.add("MHS-MXP");
+//        algorithms.add("HST-MXP");
+        if(solverChoice.getValue().equals("CATS")) {
+            algoChoise.getItems().add("mhs-mxp");
+            algoChoise.getItems().add("hst-mxp");
+            algoChoise.setValue("mhs-mxp");
+        }
+
+
         timeoutSetter.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0)
+        );
+
+        depthSetter.setValueFactory(
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0)
         );
 
@@ -126,6 +171,99 @@ public class ApplicationController {
                 modifyInterfaceAccordingToCurrentSolver();
                 return;
             }
+        }
+    }
+
+    @FXML
+    protected void uploadFile(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if(selectedFile != null){
+            try{
+                String context = Files.readString(Path.of(selectedFile.getAbsolutePath()));
+                bkText.setText(context);
+            }
+            catch (Exception e){
+                bkText.setText("Error reading file: "+ e.getMessage());
+            }
+        }
+
+    }
+
+    @FXML
+    protected void uploadObservation(){
+//        System.out.println("Upload");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if(selectedFile != null){
+            try{
+                String context = Files.readString(Path.of(selectedFile.getAbsolutePath()));
+                observationText.setText(context);
+            }
+            catch (Exception e){
+                observationText.setText("Error reading file: "+ e.getMessage());
+            }
+        }
+
+    }
+
+    @FXML
+    protected void uploadAbducibles(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if(selectedFile != null){
+            try{
+                String context = Files.readString(Path.of(selectedFile.getAbsolutePath()));
+                abduciblesText.setText(context);
+            }
+            catch (Exception e){
+                abduciblesText.setText("Error reading file: "+ e.getMessage());
+            }
+        }
+
+    }
+
+
+
+    @FXML
+    protected void saveLogs(){
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Log files (*.log)", "*.log");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            saveTextToFile(logConsole.getText(), file);
+        }
+    }
+
+    @FXML
+    protected void saveExpln(){
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            saveTextToFile(explanationsConsole.getText(), file);
+        }
+    }
+
+    private void saveTextToFile(String content, File file) {
+        try {
+            PrintWriter writer;
+            writer = new PrintWriter(file);
+            writer.println(content);
+            writer.close();
+        } catch (IOException e) {
+            logConsole.setText(e.getMessage());
         }
     }
 
@@ -184,6 +322,8 @@ public class ApplicationController {
         setCheckboxDefaultValue(descriptor.hasRoleSwitch(), descriptor.defaultRoleSwitch(), roleCheckbox);
         setCheckboxDefaultValue(descriptor.hasLoopSwitch(), descriptor.defaultLoopSwitch(), loopCheckbox);
 
+        setCheckboxDefaultValue(true, true, strictRelevant);
+
         disableImpossibleConceptConfiguration();
         disableImpossibleRoleConfiguration();
 
@@ -230,6 +370,13 @@ public class ApplicationController {
         makeElementVisible(timeoutLabel, descriptor.hasTimeLimit());
         makeElementVisible(timeoutSecondsLabel, descriptor.hasTimeLimit());
 
+        //Todo: Implement Api call
+        boolean hasDepthParameter = true;
+        makeElementVisible(depthSetter, hasDepthParameter);
+
+        boolean hasStrictParameter = true;
+        makeElementVisible(strictRelevant, hasStrictParameter);
+
         makeElementVisible(parameterSetter, descriptor.hasSpecificParameters());
 
         makeElementVisible(symbolRadio, descriptor.hasSymbolAbducibles());
@@ -251,11 +398,13 @@ public class ApplicationController {
     @FXML
     void hideAbduciblesText(){
         disableElement(abduciblesText,true);
+        disableElement(abduciblesButton, true);
     }
 
     @FXML
     void showAbduciblesText(){
         allowElement(abduciblesText,true);
+        allowElement(abduciblesButton, true);
     }
 
     // ------------------ CONSOLE MODIFICATIONS
