@@ -33,7 +33,13 @@ public class ApplicationController {
 
 
     @FXML
-    Button uploadButton;
+    Button uploadBkN;
+
+    @FXML
+    Button uploadObservation;
+
+    @FXML
+    Button abduciblesButton;
 
     @FXML
     Button savelogs;
@@ -156,10 +162,6 @@ public class ApplicationController {
         explanationsConsole.setText("");
         logConsole.setText("");
 
-
-        uploadButton = new Button("Upload text File");
-
-
     }
 
     void changeSolver(){
@@ -174,7 +176,6 @@ public class ApplicationController {
 
     @FXML
     protected void uploadFile(){
-        System.out.println("Upload");
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl"));
         File selectedFile = fileChooser.showOpenDialog(stage);
@@ -189,6 +190,43 @@ public class ApplicationController {
         }
 
     }
+
+    @FXML
+    protected void uploadObservation(){
+//        System.out.println("Upload");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if(selectedFile != null){
+            try{
+                String context = Files.readString(Path.of(selectedFile.getAbsolutePath()));
+                observationText.setText(context);
+            }
+            catch (Exception e){
+                observationText.setText("Error reading file: "+ e.getMessage());
+            }
+        }
+
+    }
+
+    @FXML
+    protected void uploadAbducibles(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if(selectedFile != null){
+            try{
+                String context = Files.readString(Path.of(selectedFile.getAbsolutePath()));
+                abduciblesText.setText(context);
+            }
+            catch (Exception e){
+                abduciblesText.setText("Error reading file: "+ e.getMessage());
+            }
+        }
+
+    }
+
+
 
     @FXML
     protected void saveLogs(){
@@ -360,11 +398,13 @@ public class ApplicationController {
     @FXML
     void hideAbduciblesText(){
         disableElement(abduciblesText,true);
+        disableElement(abduciblesButton, true);
     }
 
     @FXML
     void showAbduciblesText(){
         allowElement(abduciblesText,true);
+        allowElement(abduciblesButton, true);
     }
 
     // ------------------ CONSOLE MODIFICATIONS
