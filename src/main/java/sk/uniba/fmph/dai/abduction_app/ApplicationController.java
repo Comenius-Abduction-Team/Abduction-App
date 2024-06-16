@@ -2,6 +2,7 @@ package sk.uniba.fmph.dai.abduction_app;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.SubScene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
@@ -15,6 +16,7 @@ import sk.uniba.fmph.dai.abduction_app.descriptors.SolverDescriptorMap;
 import sk.uniba.fmph.dai.abduction_app.threading.ThreadManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -27,9 +29,6 @@ public class ApplicationController {
     ThreadManager threader;
     private final Solver DEFAULT_SOLVER = Solver.CATS;
     Solver currentSolver = DEFAULT_SOLVER;
-
-    @FXML
-    ChoiceBox<String> algoChoise;
 
 
     @FXML
@@ -46,13 +45,6 @@ public class ApplicationController {
 
     @FXML
     Button explanations;
-
-    @FXML
-    Spinner<Integer> depthSetter;
-
-    @FXML
-    CheckBox strictRelevant;
-
 
     @FXML
     private TabPane logPane;
@@ -136,21 +128,7 @@ public class ApplicationController {
 
         solverChoice.setValue(DEFAULT_SOLVER.toString());
 
-//        List<String> algorithms = new ArrayList<>();
-//        algorithms.add("MHS-MXP");
-//        algorithms.add("HST-MXP");
-        if(solverChoice.getValue().equals("CATS")) {
-            algoChoise.getItems().add("mhs-mxp");
-            algoChoise.getItems().add("hst-mxp");
-            algoChoise.setValue("mhs-mxp");
-        }
-
-
         timeoutSetter.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0)
-        );
-
-        depthSetter.setValueFactory(
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0)
         );
 
@@ -322,8 +300,6 @@ public class ApplicationController {
         setCheckboxDefaultValue(descriptor.hasRoleSwitch(), descriptor.defaultRoleSwitch(), roleCheckbox);
         setCheckboxDefaultValue(descriptor.hasLoopSwitch(), descriptor.defaultLoopSwitch(), loopCheckbox);
 
-        setCheckboxDefaultValue(true, true, strictRelevant);
-
         disableImpossibleConceptConfiguration();
         disableImpossibleRoleConfiguration();
 
@@ -369,13 +345,6 @@ public class ApplicationController {
         makeElementVisible(timeoutSetter, descriptor.hasTimeLimit());
         makeElementVisible(timeoutLabel, descriptor.hasTimeLimit());
         makeElementVisible(timeoutSecondsLabel, descriptor.hasTimeLimit());
-
-        //Todo: Implement Api call
-        boolean hasDepthParameter = true;
-        makeElementVisible(depthSetter, hasDepthParameter);
-
-        boolean hasStrictParameter = true;
-        makeElementVisible(strictRelevant, hasStrictParameter);
 
         makeElementVisible(parameterSetter, descriptor.hasSpecificParameters());
 
