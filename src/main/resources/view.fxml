@@ -24,7 +24,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0">
          <content>
@@ -98,18 +98,13 @@
                                     <Label fx:id="timeoutLabel" layoutX="257.0" layoutY="47.0" text="Time limit:" />
                                     <Spinner fx:id="timeoutSetter" editable="true" layoutX="318.0" layoutY="43.0" prefHeight="25.0" prefWidth="73.0" />
                                     <Label fx:id="timeoutSecondsLabel" layoutX="403.0" layoutY="47.0" text="(seconds)" />
-                                    <Label layoutX="477.0" layoutY="47.0" text="Additional parameters:" />
-                                    <TextField fx:id="parameterSetter" layoutX="618.0" layoutY="43.0" prefHeight="25.0" prefWidth="469.0" />
+                                    <Label layoutX="477.0" layoutY="47.0" text="Solver specific parameters:" />
+                                    <TextField fx:id="parameterSetter" layoutX="632.0" layoutY="43.0" prefHeight="25.0" prefWidth="291.0" />
                                     <Pane fx:id="configuratorPane" layoutX="30.0" layoutY="90.0">
                                        <children>
-                                          <HBox layoutX="91.0" layoutY="25.0" prefHeight="35.0" prefWidth="670.0">
+                                          <HBox layoutX="91.0" layoutY="25.0" prefHeight="35.0" prefWidth="800.0">
                                              <children>
-                                                <CheckBox fx:id="conceptCheckbox" mnemonicParsing="false" onAction="#disableImpossibleConceptConfiguration" prefHeight="22.0" text="Concept assertions">
-                                                   <padding>
-                                                      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                                   </padding>
-                                                </CheckBox>
-                                                <CheckBox fx:id="complexCheckbox" mnemonicParsing="false" text="Complex concepts">
+                                                <CheckBox fx:id="complementCheckbox" mnemonicParsing="false" prefHeight="22.0" prefWidth="137.0" text="Complements">
                                                    <padding>
                                                       <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                    </padding>
@@ -117,7 +112,12 @@
                                                       <Insets left="15.0" />
                                                    </HBox.margin>
                                                 </CheckBox>
-                                                <CheckBox fx:id="complementCheckbox" mnemonicParsing="false" text="Concept complements">
+                                                <CheckBox fx:id="conceptCheckbox" mnemonicParsing="false" onAction="#disableImpossibleConceptConfiguration" prefHeight="22.0" prefWidth="158.0" text="Concept assertions">
+                                                   <padding>
+                                                      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                                   </padding>
+                                                </CheckBox>
+                                                <CheckBox fx:id="complexCheckbox" mnemonicParsing="false" prefHeight="22.0" prefWidth="152.0" text="Complex concepts">
                                                    <padding>
                                                       <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                    </padding>
@@ -125,7 +125,7 @@
                                                       <Insets left="15.0" />
                                                    </HBox.margin>
                                                 </CheckBox>
-                                                <CheckBox fx:id="roleCheckbox" mnemonicParsing="false" onAction="#disableImpossibleRoleConfiguration" text="Role assertions">
+                                                <CheckBox fx:id="roleCheckbox" mnemonicParsing="false" onAction="#disableImpossibleRoleConfiguration" prefHeight="22.0" prefWidth="138.0" text="Role assertions">
                                                    <padding>
                                                       <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                    </padding>
@@ -133,7 +133,7 @@
                                                       <Insets left="30.0" />
                                                    </HBox.margin>
                                                 </CheckBox>
-                                                <CheckBox fx:id="loopCheckbox" mnemonicParsing="false" text="Loops">
+                                                <CheckBox fx:id="loopCheckbox" mnemonicParsing="false" prefHeight="22.0" prefWidth="246.0" text="Reflexive role assertions">
                                                    <padding>
                                                       <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                    </padding>
