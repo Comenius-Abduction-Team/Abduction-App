@@ -6,7 +6,7 @@
 
     <groupId>sk.uniba.fmph.dai</groupId>
     <artifactId>dl-abduction-app</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -66,9 +66,37 @@
     <dependency>
         <groupId>com.github.Comenius-Abduction-Team</groupId>
         <artifactId>CATS-Abduction-Solver</artifactId>
-        <version>40eebf133b</version>
+        <version>bf4f10f7cc</version>
     </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>sk.uniba.fmph.dai.abduction_app.AppStarter</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>
