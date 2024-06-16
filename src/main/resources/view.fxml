@@ -105,7 +105,7 @@
                                     <Spinner fx:id="timeoutSetter" editable="true" layoutX="318.0" layoutY="43.0" prefHeight="25.0" prefWidth="73.0" />
                                     <Label fx:id="timeoutSecondsLabel" layoutX="403.0" layoutY="47.0" text="(seconds)" />
                                     <Label layoutX="477.0" layoutY="47.0" text="Additional parameters:" />
-                                    <TextField fx:id="parameterSetter" layoutX="618.0" layoutY="43.0" prefHeight="25.0" prefWidth="469.0" />
+                                    <TextField fx:id="parameterSetter" layoutX="618.0" layoutY="43.0" prefHeight="25.0" prefWidth="300.0" />
                                     <Pane fx:id="configuratorPane" layoutX="30.0" layoutY="90.0">
                                        <children>
                                           <HBox layoutX="91.0" layoutY="25.0" prefHeight="35.0" prefWidth="670.0">
@@ -163,7 +163,23 @@
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
+
+                                    <Label layoutX="950.0" layoutY="47.0" text="Alg:" />
+                                    <ChoiceBox fx:id="algoChoise" layoutX="1000.0" layoutY="43.0" prefWidth="80.0" />
+
                                     <ChoiceBox fx:id="solverChoice" layoutX="82.0" layoutY="43.0" prefWidth="150.0" />
+                                    <Label fx:id="depthLabel" layoutX="1100.0" layoutY="47.0" text="Depth:" />
+                                    <Spinner fx:id="depthSetter" editable="true" layoutX="1150.0" layoutY="43.0" prefHeight="25.0" prefWidth="73.0" />
+                                    <HBox layoutX="1082.0" layoutY="15.0">
+                                       <CheckBox fx:id="strictRelevant" mnemonicParsing="false" text="Strict relevance">
+                                          <padding>
+                                             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                          </padding>
+                                          <HBox.margin>
+                                             <Insets left="15.0" />
+                                          </HBox.margin>
+                                       </CheckBox>
+                                    </HBox>
                                  </children>
                               </Pane>
                            </content>
