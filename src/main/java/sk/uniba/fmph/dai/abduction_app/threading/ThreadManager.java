@@ -1,5 +1,6 @@
 package sk.uniba.fmph.dai.abduction_app.threading;
 
+import javafx.application.Platform;
 import sk.uniba.fmph.dai.abduction_api.abducer.IThreadAbducer;
 import javafx.concurrent.Task;
 import sk.uniba.fmph.dai.abduction_app.ApplicationController;
@@ -54,8 +55,11 @@ public class ThreadManager {
             secondaryThread.cancel();
             secondaryThread.interrupt();
         }
-        controller.progressBar.progressProperty().unbind();
-        controller.progressBar.progressProperty().setValue(0);
+        Platform.runLater(() -> {
+            controller.progressBar.progressProperty().unbind();
+            controller.progressBar.progressProperty().setValue(0);
+        });
+
     }
 
     public void runSecondaryThread(IThreadAbducer abducer){
