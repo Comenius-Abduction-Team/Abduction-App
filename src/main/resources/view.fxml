@@ -24,14 +24,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.skin.TabPaneSkin.TabControlButtons?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0">
          <content>
             <VBox minHeight="0.0" prefWidth="1009.0">
                <children>
-                  <HBox minHeight="0.0" prefHeight="277.0" prefWidth="1266.0">
+                  <HBox minHeight="0.0" prefHeight="267.0" prefWidth="1279.0">
                      <children>
                         <Pane fx:id="kbPane" minWidth="-Infinity" prefHeight="306.0" prefWidth="426.0">
                            <children>
@@ -45,6 +44,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
+                              <Button fx:id="uploadButton" graphicTextGap="0.0" layoutX="199.0" layoutY="19.0" mnemonicParsing="false" onAction="#uploadBackgroundKnowledge" text="Upload" />
                            </children>
                         </Pane>
                         <Pane minWidth="-Infinity" prefHeight="306.0" prefWidth="426.0">
@@ -59,11 +59,12 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
+                              <Button fx:id="uploadObservation" graphicTextGap="0.0" layoutX="116.0" layoutY="22.0" mnemonicParsing="false" onAction="#uploadObservation" text="Upload" />
                            </children>
                         </Pane>
                         <Pane fx:id="abduciblePane" minWidth="-Infinity" prefHeight="306.0" prefWidth="426.0">
                            <children>
-                              <TextArea fx:id="abduciblesText" disable="true" focusTraversable="true" layoutX="13.0" layoutY="84.0" prefHeight="176.0" prefWidth="400.0" visible="false" wrapText="true">
+                              <TextArea fx:id="abduciblesText" disable="true" focusTraversable="true" layoutX="13.0" layoutY="84.0" prefHeight="176.0" prefWidth="396.0" visible="false" wrapText="true">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -82,15 +83,13 @@
                                     </RadioButton>
                                     <RadioButton fx:id="symbolRadio" mnemonicParsing="false" onAction="#showAbduciblesText" prefHeight="18.0" prefWidth="86.0" text="Symbols" toggleGroup="$abduciblesRadioGroup" />
                                     <RadioButton fx:id="axiomRadio" mnemonicParsing="false" onAction="#showAbduciblesText" prefHeight="18.0" prefWidth="75.0" text="Axioms" toggleGroup="$abduciblesRadioGroup" />
+                                    <Button fx:id="abduciblesButton" disable="true" graphicTextGap="0.0" mnemonicParsing="false" onAction="#uploadAbducibles" text="Upload" visible="false" />
                                  </children>
                               </HBox>
                            </children>
                         </Pane>
 
                      </children>
-                  </HBox>
-                  <HBox style="-fx-padding: 10">
-                     <Button fx:id="uploadButton"  graphicTextGap="0.0" layoutX="100.0" layoutY="31.0" mnemonicParsing="false" onAction="#uploadFile" text="Upload Background Knowledge" />
                   </HBox>
                   <Separator prefWidth="200.0" />
                   <Accordion maxHeight="180.0" minHeight="0.0" prefHeight="180.0" prefWidth="1266.0">
@@ -179,7 +178,7 @@
             <Button fx:id="startSolvingButton" graphicTextGap="0.0" layoutX="20.0" layoutY="31.0" mnemonicParsing="false" onAction="#startSolving" text="Start" />
             <Button fx:id="stopSolvingButton" disable="true" layoutX="74.0" layoutY="31.0" mnemonicParsing="false" onAction="#stopSolving" text="Stop" />
             <ProgressBar fx:id="progressBar" layoutX="183.0" layoutY="31.0" prefHeight="25.0" prefWidth="762.0" progress="0.0" />
-            <TabPane fx:id="logPane" layoutX="14.0" layoutY="67.0" prefHeight="256.0" prefWidth="1261.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="logPane" layoutX="14.0" layoutY="67.0" prefHeight="256.0" prefWidth="1255.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Explanations">
                   <content>
@@ -191,7 +190,7 @@
                                  </font>
                               </TextArea>
                               <Button fx:id="clearConsoleButton1" layoutX="1150.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
-                              <Button fx:id="explanations" layoutX="1113.5" layoutY="50.0" mnemonicParsing="false" onAction="#saveExpln" prefHeight="26.0" prefWidth="120.0" text="Save explanations" />
+                              <Button fx:id="explanations" layoutX="1153.0" layoutY="51.0" mnemonicParsing="false" onAction="#saveExpln" prefHeight="26.0" text="Save" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -206,7 +205,7 @@
                                  </font>
                               </TextArea>
                               <Button fx:id="clearConsoleButton" layoutX="1150.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearConsole" prefHeight="26.0" prefWidth="47.0" text="Clear" />
-                              <Button fx:id="savelogs" layoutX="1133.5" layoutY="50.0" mnemonicParsing="false" onAction="#saveLogs" prefHeight="26.0" prefWidth="80.0" text="Save logs" />
+                              <Button fx:id="savelogs" layoutX="1153.0" layoutY="51.0" mnemonicParsing="false" onAction="#saveLogs" prefHeight="26.0" text="Save" />
                            </children>
                         </AnchorPane>
                   </content>

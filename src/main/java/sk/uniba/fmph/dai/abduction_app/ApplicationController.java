@@ -2,7 +2,6 @@ package sk.uniba.fmph.dai.abduction_app;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.SubScene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
@@ -16,7 +15,6 @@ import sk.uniba.fmph.dai.abduction_app.descriptors.SolverDescriptorMap;
 import sk.uniba.fmph.dai.abduction_app.threading.ThreadManager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -30,21 +28,8 @@ public class ApplicationController {
     private final Solver DEFAULT_SOLVER = Solver.CATS;
     Solver currentSolver = DEFAULT_SOLVER;
 
-
-    @FXML
-    Button uploadBkN;
-
-    @FXML
-    Button uploadObservation;
-
     @FXML
     Button abduciblesButton;
-
-    @FXML
-    Button savelogs;
-
-    @FXML
-    Button explanations;
 
     @FXML
     private TabPane logPane;
@@ -67,10 +52,6 @@ public class ApplicationController {
     @FXML
     TextField parameterSetter;
 
-    @FXML
-    ToggleGroup abduciblesRadioGroup;
-    @FXML
-    RadioButton noAbduciblesRadio;
     @FXML
     RadioButton symbolRadio;
     @FXML
@@ -112,12 +93,6 @@ public class ApplicationController {
     @FXML
     Pane configuratorPane;
 
-    @FXML
-    private TitledPane settingsPane;
-    @FXML
-    private ScrollPane scrollPane;
-
-
 // ------------------------------ HIGH-LEVEL METHODS RELATED TO RUNNING THE ABDUCTION ------------------------------
     void init(){
 
@@ -153,58 +128,38 @@ public class ApplicationController {
     }
 
     @FXML
-    protected void uploadFile(){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl"));
-        File selectedFile = fileChooser.showOpenDialog(stage);
-        if(selectedFile != null){
-            try{
-                String context = Files.readString(Path.of(selectedFile.getAbsolutePath()));
-                bkText.setText(context);
-            }
-            catch (Exception e){
-                bkText.setText("Error reading file: "+ e.getMessage());
-            }
-        }
-
+    protected void uploadBackgroundKnowledge(){
+        uploadFile(bkText);
     }
 
     @FXML
     protected void uploadObservation(){
-//        System.out.println("Upload");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl"));
-        File selectedFile = fileChooser.showOpenDialog(stage);
-        if(selectedFile != null){
-            try{
-                String context = Files.readString(Path.of(selectedFile.getAbsolutePath()));
-                observationText.setText(context);
-            }
-            catch (Exception e){
-                observationText.setText("Error reading file: "+ e.getMessage());
-            }
-        }
-
+        uploadFile(observationText);
     }
 
     @FXML
     protected void uploadAbducibles(){
+        uploadFile(abduciblesText);
+    }
+
+    private void uploadFile(TextArea area) {
+        File workingDirectory = new File(System.getProperty("user.dir"));
+
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl"));
+        fileChooser.setInitialDirectory(workingDirectory);
+
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl", "*.rdf"));
         File selectedFile = fileChooser.showOpenDialog(stage);
         if(selectedFile != null){
             try{
                 String context = Files.readString(Path.of(selectedFile.getAbsolutePath()));
-                abduciblesText.setText(context);
+                area.setText(context);
             }
             catch (Exception e){
-                abduciblesText.setText("Error reading file: "+ e.getMessage());
+                area.setText("Error reading file: "+ e.getMessage());
             }
         }
-
     }
-
-
 
     @FXML
     protected void saveLogs(){
