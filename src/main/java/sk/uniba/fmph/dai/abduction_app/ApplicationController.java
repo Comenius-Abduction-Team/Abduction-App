@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sk.uniba.fmph.dai.abduction_api.abducer.IAbducer;
 import sk.uniba.fmph.dai.abduction_api.abducer.IExplanation;
@@ -13,6 +14,11 @@ import sk.uniba.fmph.dai.abduction_app.descriptors.Solver;
 import sk.uniba.fmph.dai.abduction_app.descriptors.SolverDescriptorMap;
 import sk.uniba.fmph.dai.abduction_app.threading.ThreadManager;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 /** manages the application, both GUI and solving functionality**/
@@ -22,6 +28,8 @@ public class ApplicationController {
     private final Solver DEFAULT_SOLVER = Solver.CATS;
     Solver currentSolver = DEFAULT_SOLVER;
 
+    @FXML
+    Button abduciblesButton;
 
     @FXML
     private TabPane logPane;
@@ -44,10 +52,6 @@ public class ApplicationController {
     @FXML
     TextField parameterSetter;
 
-    @FXML
-    ToggleGroup abduciblesRadioGroup;
-    @FXML
-    RadioButton noAbduciblesRadio;
     @FXML
     RadioButton symbolRadio;
     @FXML
@@ -89,12 +93,6 @@ public class ApplicationController {
     @FXML
     Pane configuratorPane;
 
-    @FXML
-    private TitledPane settingsPane;
-    @FXML
-    private ScrollPane scrollPane;
-
-
 // ------------------------------ HIGH-LEVEL METHODS RELATED TO RUNNING THE ABDUCTION ------------------------------
     void init(){
 
@@ -126,6 +124,79 @@ public class ApplicationController {
                 modifyInterfaceAccordingToCurrentSolver();
                 return;
             }
+        }
+    }
+
+    @FXML
+    protected void uploadBackgroundKnowledge(){
+        uploadFile(bkText);
+    }
+
+    @FXML
+    protected void uploadObservation(){
+        uploadFile(observationText);
+    }
+
+    @FXML
+    protected void uploadAbducibles(){
+        uploadFile(abduciblesText);
+    }
+
+    private void uploadFile(TextArea area) {
+        File workingDirectory = new File(System.getProperty("user.dir"));
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(workingDirectory);
+
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.owl", "*.rdf"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if(selectedFile != null){
+            try{
+                String context = Files.readString(Path.of(selectedFile.getAbsolutePath()));
+                area.setText(context);
+            }
+            catch (Exception e){
+                area.setText("Error reading file: "+ e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    protected void saveLogs(){
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Log files (*.log)", "*.log");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            saveTextToFile(logConsole.getText(), file);
+        }
+    }
+
+    @FXML
+    protected void saveExpln(){
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            saveTextToFile(explanationsConsole.getText(), file);
+        }
+    }
+
+    private void saveTextToFile(String content, File file) {
+        try {
+            PrintWriter writer;
+            writer = new PrintWriter(file);
+            writer.println(content);
+            writer.close();
+        } catch (IOException e) {
+            logConsole.setText(e.getMessage());
         }
     }
 
@@ -251,11 +322,13 @@ public class ApplicationController {
     @FXML
     void hideAbduciblesText(){
         disableElement(abduciblesText,true);
+        disableElement(abduciblesButton, true);
     }
 
     @FXML
     void showAbduciblesText(){
         allowElement(abduciblesText,true);
+        allowElement(abduciblesButton, true);
     }
 
     // ------------------ CONSOLE MODIFICATIONS

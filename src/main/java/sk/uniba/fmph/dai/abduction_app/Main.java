@@ -23,7 +23,11 @@ public class Main extends Application {
         ApplicationController controller = new ApplicationController();
         loader.setController(controller);
 
+        //Application.setUserAgentStylesheet("src/main/resources/Atlanta FX 2.0.1/dracula.css");
+
         Scene scene = new Scene(loader.load(), WIDTH, HEIGHT);
+        //scene.getStylesheets().add("/bootstrap3.css");
+        //scene.getStylesheets().add(Main.class.getResource("bootstrap3.css").toExternalForm());
         stage.setMinHeight(257);
         stage.setMaxHeight(HEIGHT+50);
         stage.setMaxWidth(WIDTH);
